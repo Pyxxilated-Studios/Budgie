@@ -18,8 +18,13 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.10",
+    "@material-ui/icons": "^4.9.1",
+    "@types/lodash": "^4.14.149",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-scripts": "^3.4.1"
   },
   "browserslist": [
