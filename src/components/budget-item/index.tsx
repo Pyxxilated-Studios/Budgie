@@ -10,7 +10,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Paper from "@material-ui/core/Paper";
 
-import uuid from "lodash/uniqueId";
+import { BudgetItem, Frequency } from "../../store/budget/types";
+import { updateBudgetItem } from "../../store/budget/actions";
+
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,37 +42,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-enum Frequency {
-  Weekly = "Weekly",
-  Fortnightly = "Fortnightly",
-  Monthly = "Monthly",
-  Yearly = "Yearly",
+interface ButtonProps {
+  index: number;
+  item: BudgetItem;
+  updateBudgetItem: typeof updateBudgetItem;
 }
 
-interface BudgetItem {
-  expense: string;
-  amount: string;
-  frequency: Frequency;
-  id: string;
-}
-
-export default function Item() {
+const Item = (props: ButtonProps) => {
   const classes = useStyles();
-
-  const [state, setState] = React.useState<BudgetItem>({
-    expense: "",
-    amount: "0.00",
-    frequency: Frequency.Fortnightly,
-    id: uuid(),
-  });
 
   const handleChange = (prop: keyof BudgetItem) => (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    setState({
-      ...state,
-      [prop]: event.target.value,
-    });
+    props.updateBudgetItem(props.index, prop, String(event.target.value));
   };
 
   return (
@@ -77,24 +62,26 @@ export default function Item() {
       <Paper elevation={3}>
         <TextField
           label="Expense"
-          value={state.expense}
+          value={props.item.expense}
           onChange={handleChange("expense")}
           className={clsx(classes.margin, classes.textField)}
         />
         <TextField
           label="Amount"
           className={clsx(classes.margin, classes.textField)}
-          value={state.amount}
+          value={props.item.amount}
           onChange={handleChange("amount")}
           InputProps={{
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
           }}
         />
         <FormControl className={classes.formControl}>
-          <InputLabel id={"frequency-label-" + state.id}>Frequency</InputLabel>
+          <InputLabel id={"frequency-label-" + props.item.id}>
+            Frequency
+          </InputLabel>
           <Select
-            labelId={"frequency-label" + state.id}
-            value={state.frequency}
+            labelId={"frequency-label" + props.item.id}
+            value={props.item.frequency}
             onChange={handleChange("frequency")}
             inputProps={{
               name: "frequency",
@@ -112,4 +99,6 @@ export default function Item() {
       </Paper>
     </div>
   );
-}
+};
+
+export default connect(null, { updateBudgetItem })(Item);
