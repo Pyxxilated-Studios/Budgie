@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
@@ -9,28 +10,14 @@ import IconButton from "@material-ui/core/IconButton";
 import { RootState } from "../../store";
 import { BudgetState } from "../../store/budget/types";
 import { addBudgetItem, deleteBudgetItem } from "../../store/budget/actions";
-
 import Item from "../budget-item";
-import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      width: "100%",
-      flexGrow: 1,
-      padding: theme.spacing(3),
-    },
-    content: {
-      padding: theme.spacing(2),
-    },
     item: {
       alignItems: "center",
       display: "flex",
       justifyContent: "center",
-    },
-    itemButton: {
-      display: "inline",
-      float: "right",
     },
     addButton: {
       display: "table",
@@ -40,17 +27,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface BudgetProps {
+type BudgetProps = {
   budget: BudgetState;
   addBudgetItem: typeof addBudgetItem;
   deleteBudgetItem: typeof deleteBudgetItem;
-}
+};
 
 const Budget = (props: BudgetProps) => {
   const classes = useStyles();
+
   return (
     <>
       <Grid container>
+        <Grid container item>
+          <p>${props.budget.total}</p>
+        </Grid>
         {props.budget.budget.map((item, index) => (
           <Grid container item className={classes.item} key={item.id}>
             <Grid item xs={11}>

@@ -3,9 +3,11 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import BudgetReducer from "./budget/reducer";
+import SystemReducer from "./system/reducer";
 
 const RootReducer = combineReducers({
   budget: BudgetReducer,
+  system: SystemReducer,
 });
 
 export type RootState = ReturnType<typeof RootReducer>;

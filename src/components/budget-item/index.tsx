@@ -29,9 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     margin: {
       margin: theme.spacing(1),
     },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
     textField: {
       width: "25ch",
     },
@@ -42,11 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface ButtonProps {
+type ButtonProps = {
   index: number;
   item: BudgetItem;
   updateBudgetItem: typeof updateBudgetItem;
-}
+};
 
 const Item = (props: ButtonProps) => {
   const classes = useStyles();
@@ -68,9 +65,9 @@ const Item = (props: ButtonProps) => {
         />
         <TextField
           label="Amount"
-          className={clsx(classes.margin, classes.textField)}
           value={props.item.amount}
           onChange={handleChange("amount")}
+          className={clsx(classes.margin, classes.textField)}
           InputProps={{
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
           }}

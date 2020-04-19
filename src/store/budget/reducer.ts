@@ -11,6 +11,7 @@ import uuid from "lodash/uniqueId";
 
 const initialState: BudgetState = {
   budget: [],
+  total: 0,
 };
 
 export default function BudgetReducer(
@@ -28,14 +29,21 @@ export default function BudgetReducer(
       return { ...state };
 
     case DELETE_BUDGET_ITEM:
+      state.total -= Number(state.budget[action.index].amount) || 0;
       state.budget.splice(action.index, 1);
       return { ...state };
 
     case UPDATE_BUDGET_ITEM:
+      if (action.property === "amount") {
+        state.total -= Number(state.budget[action.index].amount) || 0;
+      }
       state.budget[action.index] = {
         ...state.budget[action.index],
         [action.property]: action.value,
       };
+      if (action.property === "amount") {
+        state.total += Number(state.budget[action.index].amount) || 0;
+      }
       return { ...state };
 
     default:

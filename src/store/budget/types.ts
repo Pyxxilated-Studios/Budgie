@@ -14,6 +14,7 @@ export interface BudgetItem {
 
 export interface BudgetState {
   budget: BudgetItem[];
+  total: number;
 }
 
 export const ADD_BUDGET_ITEM = "ADD_BUDGET_ITEM";
