@@ -39,11 +39,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type ButtonProps = {
-  index: number;
-  item: BudgetItem;
+type DispatchProps = {
   updateBudgetItem: typeof updateBudgetItem;
 };
+
+type OwnProps = {
+  index: number;
+  item: BudgetItem;
+};
+
+type ButtonProps = DispatchProps & OwnProps;
 
 const Item = (props: ButtonProps) => {
   const classes = useStyles();

@@ -7,9 +7,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 
-import { RootState } from "../../store";
+import { RootState, RootDispatch } from "../../store";
 import { BudgetState } from "../../store/budget/types";
 import { addBudgetItem, deleteBudgetItem } from "../../store/budget/actions";
+
 import Item from "../budget-item";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,11 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type BudgetProps = {
+type StateProps = {
   budget: BudgetState;
-  addBudgetItem: typeof addBudgetItem;
-  deleteBudgetItem: typeof deleteBudgetItem;
 };
+
+type DispatchProps = {
+  addBudgetItem: () => void;
+  deleteBudgetItem: (idx: number) => void;
+};
+
+type BudgetProps = StateProps & DispatchProps;
 
 const Budget = (props: BudgetProps) => {
   const classes = useStyles();
@@ -74,10 +80,13 @@ const Budget = (props: BudgetProps) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): StateProps => ({
   budget: state.budget,
 });
 
-export default connect(mapStateToProps, { addBudgetItem, deleteBudgetItem })(
-  Budget
-);
+const mapDispatchToProps = (dispatch: RootDispatch): DispatchProps => ({
+  addBudgetItem: (): void => dispatch(addBudgetItem()),
+  deleteBudgetItem: (idx: number): void => dispatch(deleteBudgetItem(idx)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Budget);

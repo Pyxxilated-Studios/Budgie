@@ -1,16 +1,19 @@
-import * as React from "react";
+import React, { StrictMode } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import configureStore from "./store";
+import store from "./store";
 
 import App from "./App";
 
-const store = configureStore();
-
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <StrictMode>
+    <Provider store={store.store}>
+      <PersistGate persistor={store.persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  </StrictMode>,
   document.getElementById("root")
 );
