@@ -10,7 +10,7 @@ import {
 
 const initialState: IncomeState = {
   deductibles: {
-    taxes: [{ lower: 0, upper: 14000, percentage: 14.5 }],
+    taxes: [],
     other: 0,
   },
   other: 0,
