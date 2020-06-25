@@ -186,13 +186,13 @@ const App = (props: AppProps) => {
             </IconButton>
           </div>
           <Divider />
-          <ListItem button component={NavLink} to="/budget">
+          <ListItem button component={NavLink} to="/budgie/budget">
             <ListItemIcon>
               <AttachMoneyIcon />
             </ListItemIcon>
             <ListItemText primary="Budget" />
           </ListItem>
-          <ListItem button component={NavLink} to="/income">
+          <ListItem button component={NavLink} to="/budgie/income">
             <ListItemIcon>
               <CreditCardIcon />
             </ListItemIcon>
@@ -203,10 +203,10 @@ const App = (props: AppProps) => {
         <main className={open ? classes.contentMoved : classes.content}>
           <Container>
             <Switch>
-              <Route path="/budget">
+              <Route path="/budgie/budget">
                 <Budget />
               </Route>
-              <Route path="/income">
+              <Route path="/budgie/income">
                 <Income />
               </Route>
             </Switch>
