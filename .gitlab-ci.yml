@@ -9,7 +9,7 @@ stages:
   - deploy
 
 variables:
-  PUBLIC_URL: /budgetr
+  PUBLIC_URL: /budgie
 
 test:
   stage: test
@@ -69,14 +69,14 @@ pages:
     - yarn build
     - mv public _public
     - mv build public
-    - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/budgetr/
+    - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/budgie/
     - cp public/index.html public/404.html
   artifacts:
     paths:
       - public # mandatory, other folder won't work
   environment:
     name: staging
-    url: https://www.pyxxilated.studio/budgetr
+    url: https://www.pyxxilated.studio/budgie
   only:
     - master
   except:

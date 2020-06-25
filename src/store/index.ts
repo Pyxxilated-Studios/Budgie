@@ -16,7 +16,7 @@ import SystemReducer from "./system/reducer";
 import IncomeReducer from "./income/reducer";
 
 const persistConfig = {
-  key: "budgetr",
+  key: "budgie",
   storage,
 };
 

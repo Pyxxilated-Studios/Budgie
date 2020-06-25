@@ -158,7 +158,7 @@ const App = (props: AppProps) => {
               <MenuIcon className={classes.menuIcon} />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Budgetr
+              Budgie
             </Typography>
           </Toolbar>
         </AppBar>
