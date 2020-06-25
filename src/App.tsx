@@ -1,5 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+} from "react-router-dom";
 
 import {
   makeStyles,
@@ -23,11 +29,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 import { RootState } from "./store";
 import { SystemState } from "./store/system/types";
-import { switchDialog } from "./store/system/actions";
+
 import Budget from "./components/budget";
+import Income from "./components/income";
 
 const drawerWidth = 240;
 
@@ -76,9 +84,6 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
       overflowX: "hidden",
       width: theme.spacing(7) + 1,
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9) + 1,
-      },
     },
     toolbar: {
       display: "flex",
@@ -90,26 +95,23 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
+      margin: theme.spacing(7, 0, 0, 0),
       padding: theme.spacing(3),
+      paddingLeft: theme.spacing(7) + 1,
     },
   })
 );
 
-type AppProps = {
+type StateProps = {
   system: SystemState;
-  switchDialog: typeof switchDialog;
 };
+
+type AppProps = StateProps;
 
 const App = (props: AppProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  let content = null;
-
-  if (props.system.budget) {
-    content = <Budget />;
-  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,7 +122,7 @@ const App = (props: AppProps) => {
   };
 
   return (
-    <div>
+    <Router>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -145,6 +147,7 @@ const App = (props: AppProps) => {
           </Typography>
         </Toolbar>
       </AppBar>
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -168,18 +171,33 @@ const App = (props: AppProps) => {
           </IconButton>
         </div>
         <Divider />
-        <ListItem button>
+        <ListItem button component={NavLink} to="/budget">
           <ListItemIcon>
             <AttachMoneyIcon />
           </ListItemIcon>
           <ListItemText primary="Budget" />
         </ListItem>
+        <ListItem button component={NavLink} to="/income">
+          <ListItemIcon>
+            <CreditCardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Income" />
+        </ListItem>
       </Drawer>
+
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Container>{content}</Container>
+        <Container>
+          <Switch>
+            <Route path="/budget">
+              <Budget />
+            </Route>
+            <Route path="/income">
+              <Income />
+            </Route>
+          </Switch>
+        </Container>
       </main>
-    </div>
+    </Router>
   );
 };
 
@@ -187,4 +205,4 @@ const mapStateToProps = (state: RootState) => ({
   system: state.system,
 });
 
-export default connect(mapStateToProps, { switchDialog })(App);
+export default connect(mapStateToProps)(App);

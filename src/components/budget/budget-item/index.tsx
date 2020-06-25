@@ -9,9 +9,11 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Paper from "@material-ui/core/Paper";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
-import { BudgetItem, Frequency } from "../../store/budget/types";
-import { updateBudgetItem } from "../../store/budget/actions";
+import { BudgetItem, Frequency } from "../../../store/budget/types";
+import { updateBudgetItem } from "../../../store/budget/actions";
 
 import { connect } from "react-redux";
 
@@ -36,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       minWidth: 120,
     },
+    delete: {
+      margin: theme.spacing(1),
+    },
   })
 );
 
@@ -46,6 +51,7 @@ type DispatchProps = {
 type OwnProps = {
   index: number;
   item: BudgetItem;
+  onDeletePress: (idx: number) => void;
 };
 
 type ButtonProps = DispatchProps & OwnProps;
@@ -98,6 +104,14 @@ const Item = (props: ButtonProps) => {
             <MenuItem value={Frequency.Yearly}>{Frequency.Yearly}</MenuItem>
           </Select>
         </FormControl>
+        <IconButton
+          aria-label="delete"
+          color="secondary"
+          onClick={() => props.onDeletePress(props.index)}
+          className={classes.delete}
+        >
+          <DeleteIcon fontSize="small" />
+        </IconButton>
       </Paper>
     </div>
   );

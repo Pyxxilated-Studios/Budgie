@@ -12,6 +12,8 @@ import uuid from "lodash/uniqueId";
 const initialState: BudgetState = {
   budget: [],
   total: 0,
+  weeks: 365 / 7,
+  fortnights: 365 / 14,
 };
 
 export default function BudgetReducer(
@@ -29,24 +31,56 @@ export default function BudgetReducer(
       return { ...state };
 
     case DELETE_BUDGET_ITEM:
-      state.total -= Number(state.budget[action.index].amount) || 0;
+      const amount = Number(state.budget[action.index].amount) || 0;
+      state.total -= convertToYearly(
+        state,
+        amount,
+        state.budget[action.index].frequency
+      );
       state.budget.splice(action.index, 1);
       return { ...state };
 
-    case UPDATE_BUDGET_ITEM:
-      if (action.property === "amount") {
-        state.total -= Number(state.budget[action.index].amount) || 0;
-      }
+    case UPDATE_BUDGET_ITEM: {
+      const amountBefore = Number(state.budget[action.index].amount) || 0;
+      state.total -= convertToYearly(
+        state,
+        amountBefore,
+        state.budget[action.index].frequency
+      );
+
       state.budget[action.index] = {
         ...state.budget[action.index],
         [action.property]: action.value,
       };
-      if (action.property === "amount") {
-        state.total += Number(state.budget[action.index].amount) || 0;
-      }
+
+      const amountAfter = Number(state.budget[action.index].amount) || 0;
+      state.total += convertToYearly(
+        state,
+        amountAfter,
+        state.budget[action.index].frequency
+      );
+
       return { ...state };
+    }
 
     default:
       return state;
   }
 }
+
+const convertToYearly = (
+  state: BudgetState,
+  amount: number,
+  frequency: Frequency
+): number => {
+  switch (frequency) {
+    case Frequency.Weekly:
+      return amount * state.weeks;
+    case Frequency.Fortnightly:
+      return amount * state.fortnights;
+    case Frequency.Monthly:
+      return amount * 12;
+    case Frequency.Yearly:
+      return amount;
+  }
+};

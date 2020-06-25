@@ -3,15 +3,17 @@ import { connect } from "react-redux";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 import { RootState, RootDispatch } from "../../store";
 import { BudgetState } from "../../store/budget/types";
 import { addBudgetItem, deleteBudgetItem } from "../../store/budget/actions";
 
-import Item from "../budget-item";
+import Item from "./budget-item";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,28 +47,20 @@ const Budget = (props: BudgetProps) => {
   return (
     <>
       <Grid container>
-        <Grid container item>
-          <p>${props.budget.total}</p>
-        </Grid>
         {props.budget.budget.map((item, index) => (
           <Grid container item className={classes.item} key={item.id}>
             <Grid item xs={11}>
-              <Item key={item.id} index={index} item={item} />
-            </Grid>
-            <Grid item>
-              <IconButton
-                aria-label="delete"
-                color="secondary"
-                onClick={() => {
-                  props.deleteBudgetItem(index);
-                }}
-              >
-                <DeleteIcon fontSize="small" />
-              </IconButton>
+              <Item
+                key={item.id}
+                index={index}
+                item={item}
+                onDeletePress={props.deleteBudgetItem}
+              />
             </Grid>
           </Grid>
         ))}
       </Grid>
+
       <span className={classes.addButton}>
         <IconButton
           aria-label="add budget item"
@@ -76,6 +70,20 @@ const Budget = (props: BudgetProps) => {
           <AddIcon />
         </IconButton>
       </span>
+
+      <Grid container item>
+        <Card variant="outlined">
+          <CardContent>
+            <Typography>Total</Typography>
+            <Typography variant="h5" component="h2">
+              $
+              {props.budget.total.toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
     </>
   );
 };
