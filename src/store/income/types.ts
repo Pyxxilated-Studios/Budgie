@@ -4,6 +4,12 @@ export interface TaxLine {
 }
 
 export interface IncomeState {
-  taxes: TaxLine[];
+  deductibles: {
+    taxes: TaxLine[];
+    other: number;
+  };
   income: number;
+  other: number;
 }
+
+export type IncomeType = undefined;

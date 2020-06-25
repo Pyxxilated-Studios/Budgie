@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Tax from "./deductibles/tax";
-import Other from "./deductibles/other";
+import OtherDeductible from "./deductibles/other";
 
 const Income = () => {
   return (
     <div>
       <Tax />
-      <Other />
+      <OtherDeductible />
     </div>
   );
 };

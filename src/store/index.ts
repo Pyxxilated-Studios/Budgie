@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import BudgetReducer from "./budget/reducer";
 import SystemReducer from "./system/reducer";
+import IncomeReducer from "./income/reducer";
 
 const persistConfig = {
   key: "budgetr",
@@ -22,6 +23,7 @@ const persistConfig = {
 const RootReducer = combineReducers({
   budget: BudgetReducer,
   system: SystemReducer,
+  income: IncomeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, RootReducer);

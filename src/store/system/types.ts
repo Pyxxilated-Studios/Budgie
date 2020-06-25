@@ -3,4 +3,4 @@ export interface SystemState {
   fortnights: number;
 }
 
-export type SwitchDialogType = undefined;
+export type SystemType = undefined;

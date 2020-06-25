@@ -36,7 +36,7 @@ interface UpdateBudgetItemAction {
   value: string | Frequency;
 }
 
-export type BudgetItemTypes =
+export type BudgetItemType =
   | AddBudgetItemAction
   | DeleteBudgetItemAction
   | UpdateBudgetItemAction;

@@ -1,7 +1,7 @@
 import {
   Frequency,
   BudgetState,
-  BudgetItemTypes,
+  BudgetItemType,
   ADD_BUDGET_ITEM,
   DELETE_BUDGET_ITEM,
   UPDATE_BUDGET_ITEM,
@@ -13,10 +13,10 @@ const initialState: BudgetState = {
   budget: [],
 };
 
-export default function BudgetReducer(
+const BudgetReducer = (
   state = initialState,
-  action: BudgetItemTypes
-): BudgetState {
+  action: BudgetItemType
+): BudgetState => {
   switch (action.type) {
     case ADD_BUDGET_ITEM:
       state.budget.push({
@@ -43,4 +43,6 @@ export default function BudgetReducer(
     default:
       return state;
   }
-}
+};
+
+export default BudgetReducer;
