@@ -10,27 +10,39 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
 import { RootState, RootDispatch } from "../../store";
-import { BudgetState } from "../../store/budget/types";
+import { BudgetState, BudgetItem, Frequency } from "../../store/budget/types";
 import { addBudgetItem, deleteBudgetItem } from "../../store/budget/actions";
 
 import Item from "./budget-item";
+import { SystemState } from "../../store/system/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      alignItems: "center",
+      justifyContent: "center",
+    },
     item: {
       alignItems: "center",
       display: "flex",
       justifyContent: "center",
+      maxWidth: 700,
     },
     addButton: {
       display: "table",
       margin: "0 auto",
       padding: theme.spacing(1),
     },
+    total: {
+      alignItems: "center",
+      display: "flex",
+      justifyContent: "center",
+    },
   })
 );
 
 type StateProps = {
+  system: SystemState;
   budget: BudgetState;
 };
 
@@ -46,7 +58,23 @@ const Budget = (props: BudgetProps) => {
 
   return (
     <>
-      <Grid container>
+      <Grid container className={classes.container}>
+        <Grid container item className={classes.total}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                Total:{" "}
+                {`$${(
+                  calculateTotal(props.budget.budget, props.system) || 0
+                ).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}`}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
         {props.budget.budget.map((item, index) => (
           <Grid container item className={classes.item} key={item.id}>
             <Grid item xs={11}>
@@ -70,25 +98,39 @@ const Budget = (props: BudgetProps) => {
           <AddIcon />
         </IconButton>
       </span>
-
-      <Grid container item>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography>Total</Typography>
-            <Typography variant="h5" component="h2">
-              $
-              {props.budget.total.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
     </>
   );
 };
 
+const calculateTotal = (
+  budgetItems: BudgetItem[],
+  state: SystemState
+): number =>
+  budgetItems.reduce(
+    (total, item) =>
+      total + convertToYearly(Number(item.amount) || 0, item.frequency, state),
+    0
+  );
+
+const convertToYearly = (
+  amount: number,
+  frequency: Frequency,
+  state: SystemState
+): number => {
+  switch (frequency) {
+    case Frequency.Weekly:
+      return amount * state.weeks;
+    case Frequency.Fortnightly:
+      return amount * state.fortnights;
+    case Frequency.Monthly:
+      return amount * 12;
+    case Frequency.Yearly:
+      return amount;
+  }
+};
+
 const mapStateToProps = (state: RootState): StateProps => ({
+  system: state.system,
   budget: state.budget,
 });
 
