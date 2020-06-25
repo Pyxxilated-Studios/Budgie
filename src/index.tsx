@@ -68,6 +68,8 @@ const theme = responsiveFontSizes(
           color: secondaryText,
         },
       },
+      MuiButtonBase: { root: { color: secondaryText } },
+      MuiSvgIcon: { root: { color: secondaryText } },
       MuiSelect: { icon: { color: secondaryText } },
       MuiListItemIcon: {
         root: {

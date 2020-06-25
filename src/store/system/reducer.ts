@@ -5,11 +5,11 @@ const initialState: SystemState = {
   fortnights: 365 / 14,
 };
 
-const BudgetReducer = (
+const SystemReducer = (
   state = initialState,
   action: SystemType
 ): SystemState => {
   return state;
 };
 
-export default BudgetReducer;
+export default SystemReducer;

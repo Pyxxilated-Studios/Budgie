@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme: Theme) =>
     menuButton: {
       marginRight: 36,
     },
+    menuIcon: {
+      color: theme.palette.background.default,
+    },
     hide: {
       display: "none",
     },
@@ -152,7 +155,7 @@ const App = (props: AppProps) => {
                 [classes.hide]: open,
               })}
             >
-              <MenuIcon />
+              <MenuIcon className={classes.menuIcon} />
             </IconButton>
             <Typography variant="h6" noWrap>
               Budgetr
