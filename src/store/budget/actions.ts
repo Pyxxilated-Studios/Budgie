@@ -1,5 +1,5 @@
 import {
-  BudgetItemTypes,
+  BudgetItemType,
   ADD_BUDGET_ITEM,
   DELETE_BUDGET_ITEM,
   UPDATE_BUDGET_ITEM,
@@ -7,13 +7,13 @@ import {
   Frequency,
 } from "./types";
 
-export function addBudgetItem(): BudgetItemTypes {
+export function addBudgetItem(): BudgetItemType {
   return {
     type: ADD_BUDGET_ITEM,
   };
 }
 
-export function deleteBudgetItem(index: number): BudgetItemTypes {
+export function deleteBudgetItem(index: number): BudgetItemType {
   return {
     type: DELETE_BUDGET_ITEM,
     index: index,
@@ -24,7 +24,7 @@ export function updateBudgetItem(
   index: number,
   property: keyof BudgetItem,
   value: string | Frequency
-): BudgetItemTypes {
+): BudgetItemType {
   return {
     type: UPDATE_BUDGET_ITEM,
     index: index,

@@ -1,3 +1,6 @@
-export interface SystemState {}
+export interface SystemState {
+  weeks: number;
+  fortnights: number;
+}
 
-export type SwitchDialogType = undefined;
+export type SystemType = undefined;

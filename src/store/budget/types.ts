@@ -14,9 +14,6 @@ export interface BudgetItem {
 
 export interface BudgetState {
   budget: BudgetItem[];
-  total: number;
-  weeks: number;
-  fortnights: number;
 }
 
 export const ADD_BUDGET_ITEM = "ADD_BUDGET_ITEM";
@@ -39,7 +36,7 @@ interface UpdateBudgetItemAction {
   value: string | Frequency;
 }
 
-export type BudgetItemTypes =
+export type BudgetItemType =
   | AddBudgetItemAction
   | DeleteBudgetItemAction
   | UpdateBudgetItemAction;
