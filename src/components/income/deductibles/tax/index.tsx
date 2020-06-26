@@ -2,13 +2,14 @@ import React, { forwardRef } from "react";
 import { connect } from "react-redux";
 
 import MaterialTable from "material-table";
-import { makeStyles, createStyles, Theme } from "@material-ui/core";
+import { Icons } from "material-table";
+
+import Grid from "@material-ui/core/Grid";
 import AddBox from "@material-ui/icons/AddBox";
 import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
 import Edit from "@material-ui/icons/Edit";
-import { Icons } from "material-table";
 
 import { IncomeState, TaxLine } from "../../../../store/income/types";
 import { RootState, RootDispatch } from "../../../../store";
@@ -29,12 +30,6 @@ type DispatchProps = {
 };
 
 type TaxProps = StateProps & DispatchProps;
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  })
-);
 
 const columns = [
   {
@@ -60,10 +55,8 @@ const tableIcons: Icons = {
 };
 
 const Tax = (props: TaxProps) => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <Grid container direction="row" justify="center" alignItems="center">
       <MaterialTable
         style={{ padding: "0 2em 2em" }}
         title="Tax"
@@ -83,19 +76,23 @@ const Tax = (props: TaxProps) => {
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve) => {
-              const data = oldData as TaxLine & { tableData: { id: number } };
+              const data = oldData as TaxLine & {
+                tableData: { id: number };
+              };
               props.updateTaxItem(newData, data.tableData.id);
               resolve();
             }),
           onRowDelete: (oldData) =>
             new Promise((resolve) => {
-              const data = oldData as TaxLine & { tableData: { id: number } };
+              const data = oldData as TaxLine & {
+                tableData: { id: number };
+              };
               props.removeTaxItem(data.tableData.id);
               resolve();
             }),
         }}
       />
-    </div>
+    </Grid>
   );
 };
 

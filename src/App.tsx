@@ -99,7 +99,6 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       margin: theme.spacing(9, 0, 0, 0),
-      marginLeft: drawerClosedWidth,
       transition: theme.transitions.create("margin-left", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -108,7 +107,6 @@ const useStyles = makeStyles((theme: Theme) =>
     contentMoved: {
       flexGrow: 1,
       margin: theme.spacing(9, 0, 0, 0),
-      marginLeft: drawerWidth,
       transition: theme.transitions.create("margin-left", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,

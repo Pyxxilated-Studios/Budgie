@@ -58,8 +58,8 @@ const Budget = (props: BudgetProps) => {
 
   return (
     <>
-      <Grid container className={classes.container}>
-        <Grid container item className={classes.total}>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item className={classes.total}>
           <Card variant="outlined">
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -76,20 +76,16 @@ const Budget = (props: BudgetProps) => {
         </Grid>
 
         {props.budget.budget.map((item, index) => (
-          <Grid container item className={classes.item} key={item.id}>
-            <Grid item xs={11}>
-              <Item
-                key={item.id}
-                index={index}
-                item={item}
-                onDeletePress={props.deleteBudgetItem}
-              />
-            </Grid>
+          <Grid item className={classes.item} key={item.id} xs={11}>
+            <Item
+              key={item.id}
+              index={index}
+              item={item}
+              onDeletePress={props.deleteBudgetItem}
+            />
           </Grid>
         ))}
-      </Grid>
 
-      <span className={classes.addButton}>
         <IconButton
           aria-label="add budget item"
           color="primary"
@@ -97,7 +93,7 @@ const Budget = (props: BudgetProps) => {
         >
           <AddIcon />
         </IconButton>
-      </span>
+      </Grid>
     </>
   );
 };
