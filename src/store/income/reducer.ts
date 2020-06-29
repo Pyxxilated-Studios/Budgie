@@ -6,6 +6,7 @@ import {
   ADD_TAX_ITEM,
   REMOVE_TAX_ITEM,
   UPDATE_TAX_ITEM,
+  UPDATE_INCOME,
 } from "./types";
 
 const initialState: IncomeState = {
@@ -37,6 +38,12 @@ const IncomeReducer = (
     case UPDATE_TAX_ITEM: {
       const newState = cloneDeep(state);
       newState.deductibles.taxes[action.index] = action.item;
+      return newState;
+    }
+
+    case UPDATE_INCOME: {
+      const newState = cloneDeep(state);
+      newState.income = action.income;
       return newState;
     }
 
