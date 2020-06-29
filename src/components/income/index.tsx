@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 import { RootState, RootDispatch } from "../../store";
 import { TaxLine, IncomeState } from "../../store/income/types";
+import { SystemState } from "../../store/system/types";
 import { updateIncome } from "../../store/income/actions";
 
 import Tax from "./deductibles/tax";
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type StateProps = {
+  system: SystemState;
   income: IncomeState;
 };
 
@@ -33,6 +35,13 @@ type IncomeProps = StateProps & DispatchProps;
 
 const Income = (props: IncomeProps) => {
   const classes = useStyles();
+
+  const incomeAfterTax = calculateIncome(
+    props.income.income,
+    props.income.deductibles.taxes
+  );
+
+  const incomePeriods = getPeriodicIncome(incomeAfterTax, props.system);
 
   return (
     <div>
@@ -50,11 +59,24 @@ const Income = (props: IncomeProps) => {
           />
           <Typography>Income After Tax </Typography>
           <Typography>
-            {calculateIncome(
-              props.income.income,
-              props.income.deductibles.taxes
-            )}
+            $
+            {incomeAfterTax.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Typography>
+          {incomePeriods.map(({ period, amount }) => (
+            <>
+              <Typography>{period}</Typography>
+              <Typography>
+                $
+                {amount.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </Typography>
+            </>
+          ))}
         </CardContent>
       </Card>
     </div>
@@ -73,7 +95,23 @@ const calculateIncome = (income: number, deductions: TaxLine[]): number =>
     return total;
   }, income);
 
+const getPeriodicIncome = (
+  income: number,
+  system: SystemState
+): { period: string; amount: number }[] => {
+  const periods = [
+    { period: "Annual", amount: income },
+    { period: "Monthly", amount: income / 12 },
+    { period: "Fortnightly", amount: income / system.fortnights },
+    { period: "Weekly", amount: income / system.weeks },
+    { period: "Hourly", amount: income / system.weeks / system.hours },
+  ];
+
+  return periods;
+};
+
 const mapStateToProps = (state: RootState): StateProps => ({
+  system: state.system,
   income: state.income,
 });
 
