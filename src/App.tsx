@@ -28,7 +28,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import CreditCardIcon from "@material-ui/icons/CreditCard";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import HomeIcon from "@material-ui/icons/Home";
 
 import { RootState } from "./store";
 import { SystemState } from "./store/system/types";
@@ -184,6 +185,12 @@ const App = (props: AppProps) => {
             </IconButton>
           </div>
           <Divider />
+          <ListItem button component={NavLink} to="/budgie">
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
           <ListItem button component={NavLink} to="/budgie/budget">
             <ListItemIcon>
               <AttachMoneyIcon />
@@ -192,7 +199,7 @@ const App = (props: AppProps) => {
           </ListItem>
           <ListItem button component={NavLink} to="/budgie/income">
             <ListItemIcon>
-              <CreditCardIcon />
+              <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Income" />
           </ListItem>
@@ -201,12 +208,8 @@ const App = (props: AppProps) => {
         <main className={open ? classes.contentMoved : classes.content}>
           <Container>
             <Switch>
-              <Route path="/budgie/budget">
-                <Budget />
-              </Route>
-              <Route path="/budgie/income">
-                <Income />
-              </Route>
+              <Route path="/budgie/budget" component={Budget} />
+              <Route path="/budgie/income" component={Income} />
             </Switch>
           </Container>
         </main>
