@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import MaterialTable from "material-table";
 import { Icons } from "material-table";
 
-import Grid from "@material-ui/core/Grid";
 import AddBox from "@material-ui/icons/AddBox";
 import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
@@ -56,43 +55,52 @@ const tableIcons: Icons = {
 
 const Tax = (props: TaxProps) => {
   return (
-    <Grid container direction="row" justify="center" alignItems="center">
-      <MaterialTable
-        style={{ padding: "0 2em 2em" }}
-        title="Tax"
-        icons={{ ...tableIcons }}
-        columns={columns}
-        data={props.income.deductibles.taxes}
-        options={{
-          search: false,
-          paginationType: undefined,
-          paging: undefined,
-        }}
-        editable={{
-          onRowAdd: (newData) =>
-            new Promise((resolve) => {
-              props.addTaxItem(newData);
-              resolve();
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve) => {
-              const data = oldData as TaxLine & {
-                tableData: { id: number };
-              };
-              props.updateTaxItem(newData, data.tableData.id);
-              resolve();
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve) => {
-              const data = oldData as TaxLine & {
-                tableData: { id: number };
-              };
-              props.removeTaxItem(data.tableData.id);
-              resolve();
-            }),
-        }}
-      />
-    </Grid>
+    <MaterialTable
+      style={{ padding: "0 2em 2em" }}
+      title="Tax"
+      icons={{ ...tableIcons }}
+      columns={columns}
+      data={props.income.deductibles.taxes}
+      options={{
+        search: false,
+        paginationType: undefined,
+        paging: undefined,
+      }}
+      editable={{
+        onRowAdd: (newData) =>
+          new Promise((resolve) => {
+            props.addTaxItem({
+              upper: Number(newData.upper) || 0,
+              lower: Number(newData.lower) || 0,
+              percentage: Number(newData.percentage) || 0,
+            });
+            resolve();
+          }),
+        onRowUpdate: (newData, oldData) =>
+          new Promise((resolve) => {
+            const data = oldData as TaxLine & {
+              tableData: { id: number };
+            };
+            props.updateTaxItem(
+              {
+                upper: Number(newData.upper) || 0,
+                lower: Number(newData.lower) || 0,
+                percentage: Number(newData.percentage) || 0,
+              },
+              data.tableData.id
+            );
+            resolve();
+          }),
+        onRowDelete: (oldData) =>
+          new Promise((resolve) => {
+            const data = oldData as TaxLine & {
+              tableData: { id: number };
+            };
+            props.removeTaxItem(data.tableData.id);
+            resolve();
+          }),
+      }}
+    />
   );
 };
 

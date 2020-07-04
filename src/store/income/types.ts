@@ -32,7 +32,14 @@ interface UpdateTaxItemAction {
   index: number;
 }
 
+export const UPDATE_INCOME = "UPDATE_INCOME";
+interface UpdateIncomeAction {
+  type: typeof UPDATE_INCOME;
+  income: number;
+}
+
 export type IncomeType =
   | AddTaxItemAction
   | RemoveTaxItemAction
-  | UpdateTaxItemAction;
+  | UpdateTaxItemAction
+  | UpdateIncomeAction;
