@@ -49,4 +49,8 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn build
-          rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" build gitlab@${{ secrets.SERVER_IP }}:/var/www/budgie/
+          mv public _public
+          mv build public
+          rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" public gitlab@${{ secrets.SERVER_IP }}:/var/www/budgie/
+        env:
+          PUBLIC_URL: /budgie
