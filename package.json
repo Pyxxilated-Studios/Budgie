@@ -38,7 +38,9 @@
     "ts-loader": "^6.2.2"
   },
   "resolutions": {
-    "core-js": "^3.0.0"
+    "core-js": "^3.0.0",
+    "node-forge": "^0.10.0",
+    "chokidar": "^3.0.0"
   },
   "browserslist": [
     ">0.2%",
