@@ -45,6 +45,7 @@ const columns = [
   },
 ];
 
+/* eslint-disable */
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -52,6 +53,7 @@ const tableIcons: Icons = {
   Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
   Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
 };
+/* eslint-enable */
 
 const Tax = (props: TaxProps) => {
   return (
@@ -74,7 +76,7 @@ const Tax = (props: TaxProps) => {
               lower: Number(newData.lower) || 0,
               percentage: Number(newData.percentage) || 0,
             });
-            resolve();
+            resolve(null);
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
@@ -89,7 +91,7 @@ const Tax = (props: TaxProps) => {
               },
               data.tableData.id
             );
-            resolve();
+            resolve(null);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
@@ -97,7 +99,7 @@ const Tax = (props: TaxProps) => {
               tableData: { id: number };
             };
             props.removeTaxItem(data.tableData.id);
-            resolve();
+            resolve(null);
           }),
       }}
     />

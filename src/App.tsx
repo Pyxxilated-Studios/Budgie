@@ -32,7 +32,6 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import HomeIcon from "@material-ui/icons/Home";
 
 import { RootState } from "./store";
-import { SystemState } from "./store/system/types";
 
 import Budget from "./components/budget";
 import Income from "./components/income";
@@ -116,13 +115,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type StateProps = {
-  system: SystemState;
-};
-
-type AppProps = StateProps;
-
-const App = (props: AppProps) => {
+const App = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);

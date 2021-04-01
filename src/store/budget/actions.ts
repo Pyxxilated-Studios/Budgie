@@ -22,13 +22,13 @@ export function deleteBudgetItem(index: number): BudgetItemType {
 
 export function updateBudgetItem(
   index: number,
-  property: keyof BudgetItem,
+  property: string,
   value: string | Frequency
 ): BudgetItemType {
   return {
     type: UPDATE_BUDGET_ITEM,
     index: index,
-    property: property,
+    property: property as keyof BudgetItem,
     value: value,
   };
 }

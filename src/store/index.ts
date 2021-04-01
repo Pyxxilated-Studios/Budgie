@@ -46,11 +46,13 @@ const persistor = persistStore(store);
 export type RootState = ReturnType<typeof RootReducer>;
 export type RootDispatch = Dispatch<AnyAction> &
   ThunkDispatch<RootState, unknown, AnyAction>;
+/* eslint-disable */
 export type RootThunk = ThunkAction<
   any,
   RootState,
   unknown,
   Action<string | void | boolean>
 >;
+/* eslint-enable */
 
 export default { store, persistor };

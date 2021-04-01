@@ -1,6 +1,6 @@
 import React from "react";
 
-const Other = () => {
+const Other: React.FC = () => {
   return <div></div>;
 };
 

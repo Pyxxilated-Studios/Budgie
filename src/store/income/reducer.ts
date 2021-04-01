@@ -21,7 +21,7 @@ const initialState: IncomeState = {
 const IncomeReducer = (
   state: IncomeState = initialState,
   action: IncomeType
-) => {
+): IncomeState => {
   switch (action.type) {
     case ADD_TAX_ITEM: {
       const newState = cloneDeep(state);

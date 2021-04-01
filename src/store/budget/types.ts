@@ -15,6 +15,7 @@ export interface BudgetItem {
 export interface BudgetState {
   budget: BudgetItem[];
 }
+export type x = keyof { name: string };
 
 export const ADD_BUDGET_ITEM = "ADD_BUDGET_ITEM";
 export const DELETE_BUDGET_ITEM = "DELETE_BUDGET_ITEM";

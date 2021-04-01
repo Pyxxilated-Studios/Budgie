@@ -10,6 +10,7 @@ const SystemReducer = (
   state = initialState,
   action: SystemType
 ): SystemState => {
+  if (action) return state;
   return state;
 };
 
