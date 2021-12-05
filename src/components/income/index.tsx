@@ -66,7 +66,7 @@ const Income = (props: IncomeProps) => {
             })}
           </Typography>
           {incomePeriods.map(({ period, amount }) => (
-            <>
+            <React.Fragment key={`${period}-${amount}`}>
               <Typography>{period}</Typography>
               <Typography>
                 $
@@ -75,7 +75,7 @@ const Income = (props: IncomeProps) => {
                   maximumFractionDigits: 2,
                 })}
               </Typography>
-            </>
+            </React.Fragment>
           ))}
         </CardContent>
       </Card>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   NavLink,
 } from "react-router-dom";
@@ -178,7 +178,7 @@ const App = () => {
             </IconButton>
           </div>
           <Divider />
-          <ListItem button component={NavLink} to="/budgie">
+          <ListItem button component={NavLink} to="/">
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -200,10 +200,11 @@ const App = () => {
 
         <main className={open ? classes.contentMoved : classes.content}>
           <Container>
-            <Switch>
-              <Route path="/budgie/budget" component={Budget} />
-              <Route path="/budgie/income" component={Income} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={null} />
+              <Route path="/budgie/budget" element={<Budget />} />
+              <Route path="/budgie/income" element={<Income />} />
+            </Routes>
           </Container>
         </main>
       </Router>

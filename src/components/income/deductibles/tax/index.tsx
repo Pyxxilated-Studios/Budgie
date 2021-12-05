@@ -1,8 +1,7 @@
 import React, { forwardRef } from "react";
 import { connect } from "react-redux";
 
-import MaterialTable from "material-table";
-import { Icons } from "material-table";
+import MaterialTable, { Icons } from "@material-table/core";
 
 import AddBox from "@material-ui/icons/AddBox";
 import Check from "@material-ui/icons/Check";

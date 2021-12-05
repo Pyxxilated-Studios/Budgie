@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import {
-  createMuiTheme,
+  createTheme,
   responsiveFontSizes,
   ThemeProvider,
 } from "@material-ui/core/styles";
@@ -20,7 +20,7 @@ const backgroundColour = "#1a1423";
 const secondaryBackgroundColour = "#3d314a";
 
 const theme = responsiveFontSizes(
-  createMuiTheme({
+  createTheme({
     overrides: {
       MuiCssBaseline: {
         "@global": {

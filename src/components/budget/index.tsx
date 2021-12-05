@@ -58,7 +58,7 @@ const Budget = (props: BudgetProps) => {
 
   return (
     <>
-      <Grid container direction="column" justify="center" alignItems="center">
+      <Grid container direction="column" justifyContent="center" alignItems="center">
         <Grid item className={classes.total}>
           <Card variant="outlined">
             <CardContent>
